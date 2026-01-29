@@ -1,0 +1,13 @@
+.DS_Store
+
+# Xcode
+DerivedData/
+*.xcuserdata/
+*.xcuserstate
+xcuserdata/
+
+# CocoaPods (если используете)
+Pods/
+Docs/*.apns
+
+Docs/payload.apns

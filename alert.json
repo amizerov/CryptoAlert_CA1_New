@@ -1,0 +1,15 @@
+{
+  "aps": {
+    "alert": {
+      "sound": "snd0.wav",
+      "title": "ROSEBTC Binance",
+      "body": "Alert at 23.01.2022 18:42\nWatch for 1 min, 0,5%  \nGot change 0,66%",
+      "badge": 7,
+      "mutable_content": true
+    },
+    "data": {
+      "image": "https://ca.mizerov.com/57.png",
+      "icon_image": "1"
+    }
+  }
+}
