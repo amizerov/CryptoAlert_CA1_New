@@ -180,12 +180,18 @@ class Para {
 				completion()
 			}
 		}
-		else {
+		else if Exchange == 3 {
 			HuobiApi.GetChartData(Symbol, Interval) { data in
 				self.LoadKlines(data)
 				completion()
 			}
 		}
+        else {
+            AlfaBApi.GetChartData(Symbol, Interval) { data in
+                self.LoadKlines(data)
+                completion()
+            }
+        }
 	}
 	
     func LoadKlines(_ data: Data) {
@@ -220,7 +226,7 @@ class Para {
 				}
 				Klines = Klines.reversed()
 			}
-			else {
+            else if Exchange == 3 {
 				var kk: HuobiKline
 				kk = try jsonDecoder.decode(HuobiKline.self, from: data)
 				Klines.removeAll()
@@ -235,6 +241,28 @@ class Para {
 				}
 				Klines = Klines.reversed()
 			}
+            else {
+                let resp = try jsonDecoder.decode(BinanceAlphaKlinesResponse.self, from: data)
+                Klines.removeAll(keepingCapacity: true)
+                guard resp.code == "000000" else { return }
+
+                for bk in resp.data {
+                    guard
+                        let o = Double(bk.open),
+                        let c = Double(bk.close),
+                        let h = Double(bk.high),
+                        let l = Double(bk.low)
+                    else { continue }
+
+                    let k = Kline()
+                    k.Open = o
+                    k.Close = c
+                    k.High = h
+                    k.Low = l
+                    k.CloseTime = bk.closeTime/1000
+                    Klines.append(k)
+                }
+            }
         } catch {
             print("AM: \(error)")
         }

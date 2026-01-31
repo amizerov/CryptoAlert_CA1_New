@@ -16,6 +16,74 @@ class Kline {
 	init() {}
 }
 
+struct BinanceAlphaKlinesResponse: Decodable {
+    let code: String
+    let message: String?
+    let messageDetail: String?
+    let data: [BinaAlfaKline]
+}
+
+struct BinaAlfaKline: Decodable {
+    let openTime: UInt64
+    let open: String
+    let high: String
+    let low: String
+    let close: String
+    let volume: String
+    let closeTime: UInt64
+    let quoteAssetVolume: String
+    let numberOfTrades: Int
+    let takerBuyBaseAssetVolume: String
+    let takerBuyQuoteAssetVolume: String
+    let ignore: Int
+
+    init(from decoder: Decoder) throws {
+        var c = try decoder.unkeyedContainer()
+
+        func decodeStringOrNumberString() throws -> String {
+            if let s = try? c.decode(String.self) { return s }
+            if let i = try? c.decode(Int.self) { return String(i) }
+            if let d = try? c.decode(Double.self) { return String(d) }
+            throw DecodingError.typeMismatch(
+                String.self,
+                .init(codingPath: decoder.codingPath,
+                      debugDescription: "Expected String/number convertible to String")
+            )
+        }
+
+        func decodeUInt64FromStringOrNumber() throws -> UInt64 {
+            if let u = try? c.decode(UInt64.self) { return u }
+            let s = try decodeStringOrNumberString()
+            guard let u = UInt64(s) else {
+                throw DecodingError.dataCorruptedError(in: c, debugDescription: "Bad UInt64: \(s)")
+            }
+            return u
+        }
+
+        func decodeIntFromStringOrNumber() throws -> Int {
+            if let i = try? c.decode(Int.self) { return i }
+            let s = try decodeStringOrNumberString()
+            guard let i = Int(s) else {
+                throw DecodingError.dataCorruptedError(in: c, debugDescription: "Bad Int: \(s)")
+            }
+            return i
+        }
+
+        openTime = try decodeUInt64FromStringOrNumber()
+        open = try decodeStringOrNumberString()
+        high = try decodeStringOrNumberString()
+        low = try decodeStringOrNumberString()
+        close = try decodeStringOrNumberString()
+        volume = try decodeStringOrNumberString()
+        closeTime = try decodeUInt64FromStringOrNumber()
+        quoteAssetVolume = try decodeStringOrNumberString()
+        numberOfTrades = try decodeIntFromStringOrNumber()
+        takerBuyBaseAssetVolume = try decodeStringOrNumberString()
+        takerBuyQuoteAssetVolume = try decodeStringOrNumberString()
+        ignore = (try? c.decode(Int.self)) ?? 0
+    }
+}
+
 struct BinaKline: Codable {
     var OpenTime: UInt64
     var Open: String

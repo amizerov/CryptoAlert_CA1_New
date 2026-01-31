@@ -42,6 +42,7 @@
 		5533AA5F279C460500745BDA /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5533AA5D279C460500745BDA /* MainInterface.storyboard */; };
 		5533AA63279C460500745BDA /* CryptoAlertNCE.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5533AA55279C460500745BDA /* CryptoAlertNCE.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		554F61A5275B5AFA00FCBA16 /* snd0.wav in Resources */ = {isa = PBXBuildFile; fileRef = 554F61A4275B5AF900FCBA16 /* snd0.wav */; };
+		556740CD2F2D2DE400740016 /* AlfaBApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 556740CC2F2D2DCB00740016 /* AlfaBApi.swift */; };
 		557CD70A2AE6D7380001CDE4 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557CD7092AE6D7370001CDE4 /* AccountVC.swift */; };
 		557CD70C2AE81DA70001CDE4 /* TradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 557CD70B2AE81DA70001CDE4 /* TradeVC.swift */; };
 		5595AE1F27F34928003820C7 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5595AE1E27F34928003820C7 /* Order.swift */; };
@@ -135,6 +136,7 @@
 		5533AA60279C460500745BDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		554F61A4275B5AF900FCBA16 /* snd0.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = snd0.wav; sourceTree = "<group>"; };
 		55595A2C2796C90300EEA88A /* CryptoAlertNSE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptoAlertNSE.entitlements; sourceTree = "<group>"; };
+		556740CC2F2D2DCB00740016 /* AlfaBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlfaBApi.swift; sourceTree = "<group>"; };
 		557CD7092AE6D7370001CDE4 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
 		557CD70B2AE81DA70001CDE4 /* TradeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeVC.swift; sourceTree = "<group>"; };
 		5595AE1E27F34928003820C7 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 		238DA8B026DCE17E0037A1A2 /* Transport */ = {
 			isa = PBXGroup;
 			children = (
+				556740CC2F2D2DCB00740016 /* AlfaBApi.swift */,
 				238DA8B126DCE1D60037A1A2 /* Api.v.1.swift */,
 				5598D4742794684300D74855 /* HuobiApi.swift */,
 				55FCA2CE2776EA00004211A2 /* KucoinApi.swift */,
@@ -550,6 +553,7 @@
 				23619C7426D8A6AA004241DD /* AppDelegate.swift in Sources */,
 				55E7385627429BD200D06D42 /* Logger.swift in Sources */,
 				5595AE2227F35A29003820C7 /* OrderTVCell.swift in Sources */,
+				556740CD2F2D2DE400740016 /* AlfaBApi.swift in Sources */,
 				55E98017275642520077D4F8 /* StartVC.swift in Sources */,
 				2392937726EA48B9008B5578 /* BinanceApi.swift in Sources */,
 				23619C8D26D8BFDB004241DD /* Para.swift in Sources */,
