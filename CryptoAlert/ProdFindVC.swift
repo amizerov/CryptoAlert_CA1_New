@@ -197,7 +197,10 @@ extension ProdFindVC: UITableViewDataSource, UITableViewDelegate
 	}
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		addVC!.txtSymbol.text = arFiltr[indexPath.row].symbol
+        
+        let prod = arFiltr[indexPath.row]
+        addVC!.txtSymbol.text = prod.baseasset+"/"+prod.quoteasset
+        addVC!.selectedSymbol = prod.symbol
 		self.dismiss(animated: true)
 	}
 }

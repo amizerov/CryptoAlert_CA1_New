@@ -27,7 +27,7 @@ class ParaEditVC: UIViewController, WebApiProtocol {
         super.viewDidLoad()
 
         let p = thePara!
-        lblSymbol.text = p.Symbol
+        lblSymbol.text = p.SymbolDecorate()
         lblExchange.text = Exchange.DisplayName(for: p.Exchange)
 		
         lblInterval.text = "\(p.Interval)"

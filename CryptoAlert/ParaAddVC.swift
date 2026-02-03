@@ -11,6 +11,7 @@ class ParaAddVC: UIViewController, WebApiProtocol {
 
     var webApi = WebApi()
     var mainVC: MainVC?
+    var selectedSymbol: String?
     
     @IBOutlet weak var txtSymbol: UITextField!
 	@IBOutlet weak var scExchange: UISegmentedControl!
@@ -101,7 +102,7 @@ class ParaAddVC: UIViewController, WebApiProtocol {
     func AddNewPara() {
 
         // SYMBOL: убираем пробелы, чтобы "BTC USDT" превратилось в "BTCUSDT"
-        let s = txtSymbol.text!.replacingOccurrences(of: " ", with: "")
+        let s = selectedSymbol!.replacingOccurrences(of: " ", with: "")
 
         // INTERVAL: уже “причесан” в Interval_Changed (разрешённые значения типа 1/3/5/15/30/60)
         let i = lblInterval.text!

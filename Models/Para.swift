@@ -28,8 +28,10 @@ class Paras {
                 let le = Int(a[6])!
                 let us = String(a[7])
                 let dt = String(a[8])
+                let ba = a.count > 9 ? String(a[9]) : ""
+                let qa = a.count > 10 ? String(a[10]) : ""
                 
-                let p = Para(id, sy, ex, iv, pr, ty, le, us, dt)
+                let p = Para(id, sy, ex, iv, pr, ty, le, us, dt, ba, qa)
                 arr.append(p)
             }
         }
@@ -71,6 +73,8 @@ class Para {
 			self.Level = Int(a[6])!
 			self.User = String(a[7])
 			self.Dtc = String(a[8])
+            self.baseAsset = String(a[9])
+            self.quoteAsset = String(a[10])
 					
 			completion(self)
 		}
@@ -78,7 +82,7 @@ class Para {
 
 	init(_ id: Int = 0, _ symb: String = "Use it for empty constructor", _ excha: Int = 0,
 		 _ inter: Int = 0, _ pro: Int = 0, _ typ: Int = 0, _ lvl: Int = 0,
-		 _ usr: String = "", _ dtc: String = "")
+         _ usr: String = "", _ dtc: String = "", _ ba: String = "", _ qa: String = "")
     {
 		if(symb == "Use it for empty constructor") { return }
         ID = id
@@ -90,6 +94,8 @@ class Para {
         Level = lvl
         User = usr
         Dtc = dtc == "@" ? "@" : DateToLocal(dtc)
+        baseAsset = ba
+        quoteAsset = qa
     }
 
     func SymbolDecorate() -> String {
@@ -107,6 +113,7 @@ class Para {
         (s, b) = Decorator("STEEM"); if(b){return s}
         (s, b) = Decorator("USDC"); if(b){return s}
         (s, b) = Decorator("BNB"); if(b){return s}
+        (s, b) = Decorator("TRY"); if(b){return s}
         
         return s
     }
@@ -114,7 +121,11 @@ class Para {
     private func Decorator(_ sym: String) -> (String, Bool) {
         var s = Symbol
         var b = false
-		
+		        
+        if Exchange == 4 {
+            s = baseAsset+quoteAsset
+        }
+        
         if let r: Range<String.Index> = s.range(of: sym) {
             b = true
             let i: Int = s.distance(from: s.startIndex, to: r.lowerBound)
@@ -259,13 +270,29 @@ class Para {
                     k.Close = c
                     k.High = h
                     k.Low = l
-                    k.CloseTime = bk.closeTime/1000
+                    k.CloseTime = normalizedCloseTimeSeconds(bk.closeTime/1000)
                     Klines.append(k)
                 }
             }
         } catch {
             print("AM: \(error)")
         }
+    }
+    
+    /// Normalizes timestamps to the end of the candle in seconds, aligned to `Interval`.
+    /// This prevents x-axis labels drifting by ~1 minute.
+    private func normalizedCloseTimeSeconds(_ t: UInt64) -> UInt64 {
+        let step = UInt64(max(1, Interval)) * 60
+
+        // Detect ms vs sec and normalize to seconds
+        var seconds = t
+        if seconds > 2_000_000_000_000 { // > ~2033 in ms
+            seconds /= 1_000
+        }
+
+        // Snap to candle END boundary: ..., 19:19:59, 19:20:59, ...
+        let open = (seconds / step) * step
+        return open + step
     }
 }
 
