@@ -38,7 +38,10 @@ class MainVC: UIViewController,
         if str == nil { str = "" }
         if (str?.count)! > 0 {
             str = str?.uppercased()
-            arParas = arParaf.filter({$0.Symbol.contains(str!)})
+            arParas = arParaf.filter {
+                $0.Symbol.contains(str!) ||
+                $0.baseAsset.uppercased().contains(str!)
+            }
         }
         else {
             arParas = arParaf
