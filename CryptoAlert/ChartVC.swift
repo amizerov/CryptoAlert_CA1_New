@@ -28,7 +28,8 @@ class ChartVC: UIViewController, ChartViewDelegate {
 	override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = para.Symbol + " " + Exchange.DisplayName(for: para.Exchange)
+        var sy = para.Exchange == 4 ? para.baseAsset + "/" + para.quoteAsset : para.Symbol
+        title = sy + " " + Exchange.DisplayName(for: para.Exchange)
         //setButtons()
         
 		lblAlert.text = ""

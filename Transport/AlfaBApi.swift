@@ -31,7 +31,10 @@ public class AlfaBApi {
     
    //Получить данные для свечного графика
     static func GetChartData(_ symbol: String, _ interval: Int, completion: @escaping (_ data: Data) -> Void) {
-        let url = "klines?symbol=\(symbol)&interval=\(interval)m&limit=10"
+        var url = "klines?symbol=\(symbol)&interval=\(interval)m&limit=10"
+        if interval == 60 {
+            url = "klines?symbol=\(symbol)&interval=1h&limit=10"
+        }
         Get(url) { data in
            completion(data)
         }
