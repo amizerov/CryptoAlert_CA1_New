@@ -205,6 +205,8 @@ extension ProdFindVC: UITableViewDataSource, UITableViewDelegate
         let prod = arFiltr[indexPath.row]
         addVC!.txtSymbol.text = prod.baseasset+"/"+prod.quoteasset
         addVC!.selectedSymbol = prod.symbol
+        addVC!.selectedProductId = prod.id
+        
         self.dismiss(animated: true)
     }
 }
