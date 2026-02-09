@@ -46,6 +46,7 @@ class MainVC: UIViewController,
         else {
             arParas = arParaf
         }
+        sortParasInPlace()
         self.tbvParas.reloadData()
         self.tbvParas.refreshControl?.endRefreshing()
         return
@@ -172,7 +173,13 @@ class MainVC: UIViewController,
             webApi.List(lvl: Level)
         }
     }
-    
+    private func sortParasInPlace() {
+        arParas.sort {
+            let a = $0.baseAsset.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+            let b = $1.baseAsset.folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
+            return a < b
+        }
+    }
     func ApiRequestDone(_ jsonDataFromServer: Data) {
         // Доступ к контролам на форме из другого потока
         DispatchQueue.main.async {
@@ -185,6 +192,7 @@ class MainVC: UIViewController,
             self.arParas = Paras(fromData: jsonDataFromServer).arr
             self.arParaf = self.arParas
             
+            self.sortParasInPlace()
             self.tbvParas.reloadData()
             self.tbvParas.refreshControl?.endRefreshing()
             
