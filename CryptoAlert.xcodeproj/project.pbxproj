@@ -126,7 +126,7 @@
 		2392937626EA48B9008B5578 /* BinanceApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinanceApi.swift; sourceTree = "<group>"; };
 		2392937826EB0A07008B5578 /* ParaFind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParaFind.swift; sourceTree = "<group>"; };
 		23F2A562271C47600066C41E /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
-		5514E3702F1A8C97000223C4 /* kuloin.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = kuloin.apns; sourceTree = "<group>"; };
+		5510C0232F43A18500BE7D62 /* kucoin.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = kucoin.apns; sourceTree = "<group>"; };
 		5514E3712F1A8C97000223C4 /* payload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = payload.apns; sourceTree = "<group>"; };
 		5533AA55279C460500745BDA /* CryptoAlertNCE.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CryptoAlertNCE.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		5533AA56279C460500745BDA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -326,7 +326,7 @@
 		55FCA2C8277096EA004211A2 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
-				5514E3702F1A8C97000223C4 /* kuloin.apns */,
+				5510C0232F43A18500BE7D62 /* kucoin.apns */,
 				5514E3712F1A8C97000223C4 /* payload.apns */,
 			);
 			path = Docs;
@@ -759,7 +759,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CryptoAlert/CryptoAlert.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				ENABLE_TESTABILITY = NO;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -791,7 +791,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CryptoAlert/CryptoAlert.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				GCC_NO_COMMON_BLOCKS = NO;
 				INFOPLIST_FILE = CryptoAlert/Info.plist;
@@ -818,7 +818,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -850,7 +850,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -883,7 +883,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = CryptoAlertNSE/CryptoAlertNSE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -916,7 +916,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = CryptoAlertNSE/CryptoAlertNSE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = QQB4FNYPXN;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
