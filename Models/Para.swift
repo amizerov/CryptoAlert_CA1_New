@@ -21,7 +21,7 @@ class Paras {
                 
                 let id = Int(a[0])!
                 let sy = String(a[1])
-				let ex = Int(a[2])!
+                let ex = Int(a[2])!
                 let iv = Int(a[3])!
                 let pr = Int(a[4])!
                 let ty = Int(a[5])!
@@ -45,7 +45,7 @@ class Para {
 
     var ID = 0
     var Symbol = ""
-	var Exchange = 1
+    var Exchange = 1
     var baseAsset = ""
     var quoteAsset = ""
     var Interval = 0
@@ -57,37 +57,37 @@ class Para {
     
     var Klines = [Kline]()
     
-	init(_ id: Int, completion: @escaping (_ para: Para) -> Void) {
-		
-		WebApi.GetPara(id) { data in
-			
-			let p = String(decoding: data, as: UTF8.self)
-			let a = p.split(separator: ";")
-			
-			self.ID = Int(a[0])!
-			self.Symbol = String(a[1])
-			self.Exchange = Int(a[2])!
-			self.Interval = Int(a[3])!
-			self.Procent = Int(a[4])!
-			self.Tape = Int(a[5])!
-			self.Level = Int(a[6])!
-			self.User = String(a[7])
-			self.Dtc = String(a[8])
+    init(_ id: Int, completion: @escaping (_ para: Para) -> Void) {
+        
+        WebApi.GetPara(id) { data in
+            
+            let p = String(decoding: data, as: UTF8.self)
+            let a = p.split(separator: ";")
+            
+            self.ID = Int(a[0])!
+            self.Symbol = String(a[1])
+            self.Exchange = Int(a[2])!
+            self.Interval = Int(a[3])!
+            self.Procent = Int(a[4])!
+            self.Tape = Int(a[5])!
+            self.Level = Int(a[6])!
+            self.User = String(a[7])
+            self.Dtc = String(a[8])
             self.baseAsset = String(a[9])
             self.quoteAsset = String(a[10])
-					
-			completion(self)
-		}
-	}
+                    
+            completion(self)
+        }
+    }
 
-	init(_ id: Int = 0, _ symb: String = "Use it for empty constructor", _ excha: Int = 0,
-		 _ inter: Int = 0, _ pro: Int = 0, _ typ: Int = 0, _ lvl: Int = 0,
+    init(_ id: Int = 0, _ symb: String = "Use it for empty constructor", _ excha: Int = 0,
+         _ inter: Int = 0, _ pro: Int = 0, _ typ: Int = 0, _ lvl: Int = 0,
          _ usr: String = "", _ dtc: String = "", _ ba: String = "", _ qa: String = "")
     {
-		if(symb == "Use it for empty constructor") { return }
+        if(symb == "Use it for empty constructor") { return }
         ID = id
         Symbol = symb.uppercased()
-		Exchange = excha
+        Exchange = excha
         Interval = inter
         Procent = pro
         Tape = typ
@@ -99,9 +99,9 @@ class Para {
     }
 
     func SymbolDecorate() -> String {
-		
-		// Binance Symbol has no separator but Kucoin has
-		var s = Symbol; if s.contains("-") { return s }
+        
+        // Binance Symbol has no separator but Kucoin has
+        var s = Symbol; if s.contains("-") { return s }
         var b = false
 
         (s, b) = Decorator("USDT"); if(b){return s}
@@ -121,7 +121,7 @@ class Para {
     private func Decorator(_ sym: String) -> (String, Bool) {
         var s = Symbol
         var b = false
-		        
+                
         if Exchange == 4 {
             s = baseAsset+quoteAsset
         }
@@ -178,80 +178,83 @@ class Para {
         return res
     }
     
-	func GetKlines(completion: @escaping () -> Void) {
-		if Exchange == 1 {
-			BinanceApi.GetChartData2(Symbol, Interval) { data in
-				self.LoadKlines(data)
-				completion()
-			}
-		}
-		else if Exchange == 2 {
-			KucoinApi.GetChartData(Symbol, Interval) { data in
-				self.LoadKlines(data)
-				completion()
-			}
-		}
-		else if Exchange == 3 {
-			HuobiApi.GetChartData(Symbol, Interval) { data in
-				self.LoadKlines(data)
-				completion()
-			}
-		}
+    func GetKlines(completion: @escaping () -> Void) {
+        
+        Symbol = Symbol.uppercased()
+        
+        if Exchange == 1 {
+            BinanceApi.GetChartData2(Symbol, Interval) { data in
+                self.LoadKlines(data)
+                completion()
+            }
+        }
+        else if Exchange == 2 {
+            KucoinApi.GetChartData(Symbol, Interval) { data in
+                self.LoadKlines(data)
+                completion()
+            }
+        }
+        else if Exchange == 3 {
+            HuobiApi.GetChartData(Symbol, Interval) { data in
+                self.LoadKlines(data)
+                completion()
+            }
+        }
         else {
             AlfaBApi.GetChartData(Symbol, Interval) { data in
                 self.LoadKlines(data)
                 completion()
             }
         }
-	}
-	
+    }
+    
     func LoadKlines(_ data: Data) {
         let jsonDecoder = JSONDecoder()
         do {
-			if Exchange == 1 {
-				var bks = [BinaKline]()
-				bks = try jsonDecoder.decode([BinaKline].self, from: data)
-				Klines.removeAll()
-				for bk in bks {
-					let k = Kline()
-					k.Open = Double(bk.Open)!
-					k.Close = Double(bk.Close)!
-					k.High = Double(bk.High)!
-					k.Low = Double(bk.Low)!
-					k.CloseTime = bk.CloseTime
-					Klines.append(k)
-				}
-			}
-			else if Exchange == 2 {
-				var kk: KucoKline
-				kk = try jsonDecoder.decode(KucoKline.self, from: data)
-				Klines.removeAll()
-				for d in kk.data {
-					let k = Kline()
-					k.Open = Double(d[1])!
-					k.Close = Double(d[2])!
-					k.High = Double(d[3])!
-					k.Low = Double(d[4])!
-					k.CloseTime = UInt64(d[0])! + UInt64(Interval * 60)
-					Klines.append(k)
-				}
-				Klines = Klines.reversed()
-			}
+            if Exchange == 1 {
+                var bks = [BinaKline]()
+                bks = try jsonDecoder.decode([BinaKline].self, from: data)
+                Klines.removeAll()
+                for bk in bks {
+                    let k = Kline()
+                    k.Open = Double(bk.Open)!
+                    k.Close = Double(bk.Close)!
+                    k.High = Double(bk.High)!
+                    k.Low = Double(bk.Low)!
+                    k.CloseTime = bk.CloseTime
+                    Klines.append(k)
+                }
+            }
+            else if Exchange == 2 {
+                var kk: KucoKline
+                kk = try jsonDecoder.decode(KucoKline.self, from: data)
+                Klines.removeAll()
+                for d in kk.data {
+                    let k = Kline()
+                    k.Open = Double(d[1])!
+                    k.Close = Double(d[2])!
+                    k.High = Double(d[3])!
+                    k.Low = Double(d[4])!
+                    k.CloseTime = UInt64(d[0])! + UInt64(Interval * 60)
+                    Klines.append(k)
+                }
+                Klines = Klines.reversed()
+            }
             else if Exchange == 3 {
-				var kk: HuobiKline
-				kk = try jsonDecoder.decode(HuobiKline.self, from: data)
-				Klines.removeAll()
-				for d in kk.data {
-					let k = Kline()
-					k.Open = d.open
-					k.Close = d.close
-					k.High = d.high
-					k.Low = d.low
-					k.CloseTime = d.id + UInt64(Interval * 60)
-					Klines.append(k)
-				}
-				Klines = Klines.reversed()
-			}
+                var kk: HuobiKline
+                kk = try jsonDecoder.decode(HuobiKline.self, from: data)
+                Klines.removeAll()
+                for d in kk.data {
+                    let k = Kline()
+                    k.Open = d.open
+                    k.Close = d.close
+                    k.High = d.high
+                    k.Low = d.low
+                    k.CloseTime = d.id + UInt64(Interval * 60)
+                    Klines.append(k)
+                }
+                Klines = Klines.reversed()
+            }
             else {
                 let resp = try jsonDecoder.decode(BinanceAlphaKlinesResponse.self, from: data)
                 Klines.removeAll(keepingCapacity: true)

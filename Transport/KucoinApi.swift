@@ -29,7 +29,10 @@ public class KucoinApi {
 	//-------------------------------------------------->
 	
    //Получить данные для свечного графика
-	static func GetChartData(_ symbol: String, _ interval: Int, completion: @escaping (_ data: Data) -> Void) {
+	static func GetChartData(_ symbol: String, _ interval: Int, completion: @escaping (_ data: Data) -> Void)
+    {
+        WebApi.Log("KucoinApi.GetChartData: symbol=\(symbol), interval=\(interval)")
+        
 		let snt = interval == 60 ? "1hour" : "\(interval)min"
 		let end = UInt64(round(Date().timeIntervalSince1970))
 		let sta = end - UInt64(interval * 60 * 10)
